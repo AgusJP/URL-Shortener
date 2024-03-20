@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta property="og:title" content="Agustín Jiménez Polonio">
+    <meta property="og:description" content="Shorten your URLs easily with our URL Shortener. Simplify link sharing and track performance with detailed analytics. Start shortening now!">
+    <meta property="og:site_name" content="Url Shortener">
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="../assets/Link.svg" type="image/x-icon">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <title>User Links</title>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="title">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="1em"
+            height="1em"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M16.2 6a1 1 0 0 1 1-1c.637 0 1.262.128 1.871.372c.663.265 1.173.658 1.636 1.12c.463.464.856.974 1.121 1.637c.244.609.372 1.234.372 1.871s-.128 1.262-.372 1.871c-.261.655-.648 1.16-1.104 1.619l-.984 1.083a.967.967 0 0 1-.033.034l-3.2 3.2c-.463.463-.973.856-1.636 1.122A5.012 5.012 0 0 1 13 19.3a5.012 5.012 0 0 1-1.871-.372c-.663-.265-1.173-.658-1.636-1.12c-.463-.464-.856-.974-1.121-1.637A5.145 5.145 0 0 1 8 14.2c0-.637.128-1.262.372-1.871c.265-.663.658-1.173 1.12-1.636l1.1-1.1a1 1 0 1 1 1.415 1.414l-1.1 1.1c-.337.337-.544.627-.678.964A3.014 3.014 0 0 0 10 14.2c0 .476.077.85.229 1.229c.134.337.341.627.678.964c.337.337.627.544.964.678c.391.157.766.229 1.129.229s.738-.072 1.129-.229c.337-.134.627-.341.964-.678l3.183-3.183l.984-1.083a.967.967 0 0 1 .033-.034c.337-.337.544-.627.678-.964c.157-.391.229-.766.229-1.129s-.072-.738-.229-1.129c-.134-.337-.341-.627-.678-.964c-.337-.337-.627-.544-.964-.679A3.014 3.014 0 0 0 17.2 7a1 1 0 0 1-1-1m-4.9 1.5c-.363 0-.738.072-1.129.228c-.337.135-.627.342-.964.68L5.924 11.69l-.984 1.083l-.033.034c-.337.337-.544.627-.679.964A3.014 3.014 0 0 0 4 14.9c0 .363.072.738.228 1.129c.135.337.342.627.68.964c.336.337.626.544.963.679c.391.156.766.228 1.129.228a1 1 0 1 1 0 2a5.011 5.011 0 0 1-1.871-.371c-.663-.266-1.173-.659-1.636-1.122c-.463-.463-.856-.973-1.121-1.636A5.012 5.012 0 0 1 2 14.9c0-.637.128-1.262.372-1.871c.261-.655.648-1.16 1.104-1.619l.984-1.083l.033-.034l3.3-3.3c.463-.463.973-.856 1.636-1.121A5.012 5.012 0 0 1 11.3 5.5c.637 0 1.262.128 1.871.372c.663.265 1.173.658 1.636 1.12c.463.464.856.974 1.121 1.637c.244.609.372 1.234.372 1.871s-.128 1.262-.372 1.871c-.262.655-.649 1.162-1.105 1.62l-1.086 1.185a1 1 0 0 1-1.474-1.352l1.1-1.2l.03-.031c.337-.337.544-.627.678-.964c.157-.391.229-.766.229-1.129s-.072-.738-.229-1.129c-.134-.337-.341-.627-.678-.964c-.337-.337-.627-.544-.964-.679A3.014 3.014 0 0 0 11.3 7.5"
+            />
+          </svg>
+          <span>Short Link</span>
+        </div>
+        <div class="links">
+          <a class="logout" href="/auth/logout">Logout</a>
+          <img src="<%= user.picture %>" alt="Profile Image" />
+        </div>
+      </nav>
+    </header>
+
+    <main>
+
+      <section>
+        <h1>Here are your links</h1>
+        <h2><%=user.name%></h2>
+      </section>
+    
+      <form action="/shortUrls" method="POST">
+        <section class="inputgroup">
+          <svg class="linksvg" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 56 56"><path fill="currentColor" d="M8.783 25.404c4.086 0 4.742-1.683 6.555-1.683c.415 0 .721.087 1.268.35l3.714 1.966c.437.24.808.459 1.114.656h.131c.503-1.836 1.311-3.016 2.71-3.89v-.13l-4.982-2.644c-1.551-.83-1.683-1.508-1.683-3.453c0-4.938-3.932-8.87-8.827-8.87C3.911 7.706 0 11.66 0 16.575c0 4.895 3.911 8.828 8.783 8.828m0-3.562c-2.862 0-5.2-2.382-5.2-5.266c0-2.95 2.338-5.287 5.2-5.287c2.95 0 5.266 2.338 5.266 5.287a5.254 5.254 0 0 1-5.266 5.266m0 28.426c4.895 0 8.827-3.933 8.827-8.87c0-1.814.088-2.535 1.42-3.256L56 18.499c-.896-3.277-4.457-3.845-9.898-1.9l-18.66 6.707c-2.621.94-3.736 2.229-4.457 4.654l-.436 1.595c-.328 1.136-.83 1.704-2.535 2.578l-3.408 1.792c-.547.284-.853.371-1.268.371c-1.813 0-2.469-1.704-6.555-1.704C3.911 32.592 0 36.525 0 41.397c0 4.916 3.911 8.871 8.783 8.871m19.162-20.626c-.983 0-1.835-.808-1.835-1.813c0-1.049.852-1.836 1.835-1.836c1.005 0 1.857.787 1.857 1.836c0 1.005-.852 1.813-1.857 1.813m18.157 11.799c5.484 2.032 9.002 1.376 9.898-1.988l-17.785-9.396L29.19 34.8v.262ZM8.783 46.685c-2.862 0-5.2-2.338-5.2-5.288c0-2.884 2.338-5.244 5.2-5.244c2.95 0 5.266 2.36 5.266 5.244c0 2.95-2.316 5.288-5.266 5.288"/></svg>
+          <input
+            required
+            placeholder="Enter a long URL to shorten"
+            type="url"
+            name="fullUrl"
+            id="fullUrl"
+          />
+        </section>
+        <button type="submit">Shorten URL</button>
+      </form>
+  
+      <div class="container">
+        <% user.links.forEach(link => { %>
+          <section>
+            <div class="container-svg">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M11 17H7q-2.075 0-3.537-1.463T2 12q0-2.075 1.463-3.537T7 7h4v2H7q-1.25 0-2.125.875T4 12q0 1.25.875 2.125T7 15h4zm-3-4v-2h8v2zm5 4v-2h4q1.25 0 2.125-.875T20 12q0-1.25-.875-2.125T17 9h-4V7h4q2.075 0 3.538 1.463T22 12q0 2.075-1.463 3.538T17 17z"/></svg>
+            </div>
+            <div class="container-links">
+              <p><strong>Full URL: </strong><%= link[0].full %></p>
+              <span><strong>Short URL: </strong><a href="<%= link[0].short %>"><%= link[0].short %></a></span>
+            </div>
+            <div class="container-svg bin">
+              <svg xmlns="http://www.w3.org/2000/svg" width=".7em" height=".7em" viewBox="0 0 14 14"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" d="M1 3.5h12m-10.5 0h9v9a1 1 0 0 1-1 1h-7a1 1 0 0 1-1-1v-9h0Zm2 0V3a2.5 2.5 0 0 1 5 0v.5m-4 2V11m3-5.5V11"/></svg>
+            </div>
+        </section>
+        <% }) %>
+      </div>
+    </main>
+   
+    <footer>
+      <p>
+        ©<%= new Date().getFullYear() %> Short Link. Agustín Jiménez Polonio.
+      </p>
+    </footer>
+  </body>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const svgContainers = document.querySelectorAll('.bin');
+    
+        svgContainers.forEach(svgContainer => {
+            svgContainer.addEventListener('click', function() {
+                const shortURLSpan = svgContainer.parentElement.querySelector('.container-links span');
+                if (shortURLSpan) {
+                    const shortURL = shortURLSpan.querySelector('a').getAttribute('href');
+                    const url = new URL(shortURL);
+                    fetch(`/shortUrl${url.pathname}`, {
+                      method: 'DELETE',
+                    })
+                    .then(response => {
+                        if (response.ok) {                   
+                            window.location.href = '/auth/links'; // Redireccionar a la ruta deseada
+                            console.log('URL corta eliminada exitosamente');
+                        } else {
+                            console.error('Error al eliminar la URL corta', response);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error al eliminar la URL corta:', error);
+                    });
+                    
+                } else {
+                    console.error('No se encontró el elemento span dentro del contenedor de enlaces.');
+                }
+            });
+        });
+    });
+    </script>
+</html>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    background: radial-gradient(circle at 1px 1px, #e7e7e7 1px, white 0px) 0% 0% /
+      25px 25px;
+    font-family: Onest, Verdana, Geneva, Tahoma, sans-serif;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    min-height: 100vh;
+    padding-bottom: 100px;
+  }
+
+  header {
+    width: 100%;
+    padding: 20px 50px;
+    border-bottom: 1px solid #e5e8eb;
+  }
+
+  header span {
+    font-weight: 600;
+  }
+
+  h1,
+  h2 {
+    text-align: center;
+    margin: 0;
+  }
+
+  h2 {
+    color: #2d2c2c;
+    font-size: 2.5em;
+    font-weight: 700;
+  }
+
+  img {
+    width: 50px;
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .title {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .title span {
+    font-size: 1.6em;
+    font-weight: 700;
+  }
+
+  .title svg {
+    font-size: 1.6em;
+    font-weight: 700;
+  }
+
+  .links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .logout {
+    display: block;
+    width: auto;
+    font-weight: 500;
+    border-radius: 6px;
+    padding: 8px 15px;
+    text-decoration: none;
+    text-align: center;
+    color: white;
+    background-color: #0a0a0a;
+    transition: all 0.3s ease;
+  }
+
+  .logout:hover {
+    color: #fff;
+    background-color: #2d2c2c;
+    text-decoration: none;
+  }
+
+  main {
+    width: 800px;
+    padding: 0 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  form {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+  }
+
+  .inputgroup {
+    position: relative;
+    width: 100%;
+    height: 56px;
+  }
+
+  .linksvg {
+    position: absolute;
+    top: 14px;
+    right: 15px;
+    font-size: 1.8em;
+    font-weight: 700;
+    color: #60656b;
+  }
+
+  .copysvg {
+    position: absolute;
+    top: 17px;
+    right: 14px;
+    font-size: 1.4em;
+    font-weight: 700;
+    color: #60656b;
+  }
+
+  .copysvg:hover {
+    cursor: pointer;
+  }
+
+  h1 {
+    font-size: 4em;
+    background: #d54676; /* fallback for old browsers */
+    background: -webkit-linear-gradient(
+      to right,
+      #f7bb97,
+      #dd5e89
+    ); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(
+      to right,
+      #f7bb97,
+      #dd5e89
+    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background-size: cover;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .inputgroup input {
+    padding-right: 50px;
+  }
+
+  form input {
+    width: 100%;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 8px;
+    padding: 16px;
+    color: #60656b;
+    border: 1px solid #c1c5ca;
+  }
+
+  input:focus {
+    outline: none;
+  }
+
+  ::placeholder {
+    color: #60656b;
+  }
+
+  form button {
+    width: 30%;
+    font-size: 1.2em;
+    font-weight: 700;
+    border-radius: 8px;
+    background-color: #0a0a0a;
+    border: none;
+    color: white;
+    padding: 16px;
+    transition: all 0.3s ease;
+  }
+
+  form button:hover {
+    cursor: pointer;
+    background-color: #2d2c2c;
+  }
+
+  .container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .container section {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: 70px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #e7e7e7;
+  }
+
+  .container-links {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    width: 80%;
+  }
+
+  .container-links p {
+    overflow: hidden;
+    text-overflow: ellipsis; /* Agrega puntos suspensivos (...) al final del texto truncado */
+    white-space: nowrap; /* Evita el salto de línea */
+    max-width: 100%;
+  }
+
+  .container-svg {
+    color: #2d2c2c;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+  }
+
+  .bin {
+    cursor: pointer;
+    color: rgb(233, 111, 111);
+  }
+
+  strong {
+    color: #2d2c2c;
+  }
+
+  a {
+    font-weight: bold;
+    color: #0b4e92;
+    text-decoration: none;
+  }
+
+  footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+  }
+
+  footer p {
+    color: #60656b;
+    margin: 0;
+  }
+
+  @media only screen and (max-width: 800px) {
+    header {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    
+    main {
+      width: 600px;
+    }
+
+    main h1 {
+      font-size: 3em;
+    }
+
+    main h2 {
+      font-size: 2em;
+    }
+
+    form button {
+      width: 40%;
+    }
+  }
+
+  @media only screen and (max-width: 600px) {
+    header {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    
+    main {
+      width: 500px;
+      padding: 20px;
+    }
+
+    main h1 {
+      font-size: 2.5em;
+    }
+
+    main h2 {
+      font-size: 1.5em;
+    }
+
+    form {
+      flex-direction: column;
+    }
+
+    form button {
+      width: 100%;
+    }
+
+    container section {
+      padding: 20px;
+    }
+  }
+
+  @media only screen and (max-width: 520px) {
+    header {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    
+    main {
+      width: 400px;
+    }
+
+    main h1 {
+      font-size: 3em;
+      margin-bottom: .2em;
+    }
+
+    main h2 {
+      font-size: 2em;
+    }
+
+    form {
+      flex-direction: column;
+    }
+
+    form button {
+      width: 100%;
+    }
+
+    .container section {
+      padding: 30px 5px;
+    }
+  }
+</style>
