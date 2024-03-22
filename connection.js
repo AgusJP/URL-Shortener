@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 require('dotenv').config();
 
-mongoose.connect(`${process.env.LOCAL_MONGODB_URL}/urlShortener`, {
+mongoose.connect(`${process.env.MONGODB_URL}/urlShortener`, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(() => {
